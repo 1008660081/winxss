@@ -1,0 +1,61 @@
+debug: True # 调试模式
+proxy: ""                         # 代理配置
+headers: # 网页header
+  Accept: "*/*"
+  Accept-Language: "en-US;q=0.9,en;q=0.8"
+  User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.5845.111 Safari/537.36"
+  Cache-Control: "max-age=0"
+gau:
+  enable: False # 启用gau
+  include_sub: False # 是否包含子域名
+  analyse_params: False # 分析历史数据参数作为隐藏参数
+  with_spider: False # 是否再爬虫获取更多url
+spider: # 爬虫设置
+  concurrency: 1 # 爬虫并发数量
+  limit: 1 # 每秒限制并发数量
+  timeout: 1
+  max_depth: 1                     # 最大页面深度限制
+  max_page_visit_per_site: 999999999  # 每个站点最多访问的页面数量
+  crawler_priority: depth-first # 爬虫优先级算法 depth-first 深度优先 breadth-first 广度优先
+  no_scope: False # 指定此参数，爬虫将不受范围限制，但是受最大深度限制
+  only_root_scope: False  # 只限制根域名范围，如www.baidu.com，将限制爬虫范围为 *.baidu.com
+  similarity_url: # 启用Url泛化过滤相同网站
+    use: False  # 是否启用
+    threshold: 10 #url泛化阈值
+  similarity_page_dom: # 启用DOM相似度算法过滤相同网站
+    use: False # 是否启用
+    threshold: 5 # 网站阈值，同个domain相似度大于这个数开启过滤
+    similarity: 0.95 # 相似度阈值，大于这个数判定相似
+    vector_dim: 5000 # 向量维度
+  simile_hash: # 简单hash算法去重
+    use: False
+  sources: # 使用哪些源获得更多url
+  use_spider_dsl: False # 是否使用dsl语言捕获脚本
+  spider_dsl: ./spider-yaml # 爬虫脚本语言目录，yaml格式
+  directory_dict: ./dict # 目录字典
+  scrape_js_responses: False # 是否爬取js
+scan: # 扫描器配置
+  concurrency: 5 # 扫描器并发数量
+  limit: 5 # 每秒限制并发数量
+  filter_threshold: 999999999 # 防止重复的xss报告，每个域名xss最多报告的阈值
+  found_hidden_parameter: False # 发现隐藏参数
+  parameter_group_size: 1
+  timeout: 5 # 超时时间 单位(秒)
+  position: # 扫描参数位置，可选 get,post,uri,header,cookie
+    - get
+  output: # 支持生成json和markdown格式，为空则不生成
+    response: False # 保存返回包
+    response_header: False # 保存返回header
+  hidden_parameters: # 内置用于GET探测的隐藏参数
+report: # 结果推送,填写对应参数则使用，为空则不使用
+  finish_notify: True # 扫描完毕通知
+  node_name: 验证XSS-??? # 节点的名称，通知的时候会带上
+  bark:
+    server:
+    token:
+  dingding:
+    token: ffc27b6cbec0a2ff8bd31288fb3f1bd2cf730821850807134e7843b8a5af231f
+    secret: SEC27b6781015a472bf98cecbb8fc018727a2e9e6d31ae32a1790834df7abbb4456
+  feishu:
+    token:
+    secret:
